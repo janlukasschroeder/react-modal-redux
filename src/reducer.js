@@ -16,7 +16,8 @@ export const hideModal = id => ({
 });
 
 const initialState = {
-  modals: []
+  // modals: []
+  modals: {}
 };
 
 const modals = (state = initialState, action) => {
@@ -26,34 +27,25 @@ const modals = (state = initialState, action) => {
         id: action.id,
         visible: false
       };
-      console.log("REGISTER_MODAL", newModal);
-
       return {
         ...state,
-        modals: [...state.modals, newModal]
+        modals: { ...state.modals, [action.id]: newModal }
       };
     case "SHOW_MODAL":
-      const newModalsA = state.modals.map(modal => {
-        if (modal.id === action.id) {
-          modal.visible = true;
-        }
-        return modal;
-      });
-      console.log("SHOW_MODAL", newModalsA);
       return {
         ...state,
-        modals: newModalsA
+        modals: {
+          ...state.modals,
+          [action.id]: { ...state.modals[action.id], visible: true }
+        }
       };
     case "HIDE_MODAL":
-      const newModalsB = state.modals.map(modal => {
-        if (modal.id === action.id) {
-          modal.visible = false;
-        }
-        return modal;
-      });
       return {
         ...state,
-        modals: newModalsB
+        modals: {
+          ...state.modals,
+          [action.id]: { ...state.modals[action.id], visible: false }
+        }
       };
     default:
       return state;

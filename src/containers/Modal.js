@@ -20,9 +20,10 @@ class ModalRedux extends React.Component {
   }
 
   render() {
-    const m = this.props.modals.find(modal => modal.id === this.props.modalId);
+    const { modalId, modals, children } = this.props;
+    const modal = modals[modalId];
 
-    if (!m) {
+    if (!modal) {
       return "";
     }
 
@@ -31,9 +32,9 @@ class ModalRedux extends React.Component {
         title="Basic Modal"
         onCancel={this.handleCancel}
         onOk={this.handleOk}
-        visible={m.visible}
+        visible={modal.visible}
       >
-        {this.props.children}
+        {children}
       </Modal>
     );
   }
